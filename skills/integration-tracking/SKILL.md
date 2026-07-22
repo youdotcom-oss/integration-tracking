@@ -22,6 +22,8 @@ Use this skill when working on You.com API integrations into OSS repos via the `
 
 ## APIs and Endpoints
 
+All You.com API integrations authenticate via the `YDC_API_KEY` environment variable. When setting up an integration, configure the target repo/tooling to read the API key from `YDC_API_KEY` (e.g. in CI secrets, `.env` files, or runtime config). Do not hardcode keys or use alternative variable names.
+
 | API | Label | OpenAPI Spec | Notes |
 |---|---|---|---|
 | Search | `api:search` | https://you.com/specs/openapi_search_v1.yaml | Use `https://api.you.com/v1/agents/search` for 100 free searches/day (IP-based, no livecrawl) |
