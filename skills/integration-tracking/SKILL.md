@@ -18,6 +18,7 @@ Use this skill when working on You.com API integrations into OSS repos via the `
 4. Add the appropriate `api:*` label(s) to the tracking issue.
 5. Update checkboxes in the issue body as milestones are reached.
 6. Cross-link the target repo issue/PR in the tracking issue's Links section.
+7. Set the standard integration `User-Agent` on every You.com API call the contributed code makes (see [Outbound User-Agent](#outbound-user-agent-required)).
 
 ## APIs and Endpoints
 
@@ -27,6 +28,25 @@ Use this skill when working on You.com API integrations into OSS repos via the `
 | Contents | `api:contents` | https://you.com/specs/openapi_contents.yaml | Extract content from URLs |
 | Research | `api:research` | https://you.com/specs/openapi_research.yaml | Synthesized answers with citations |
 | Finance Research | `api:finance-research` | https://you.com/specs/openapi_finance_research_v1.yaml | Financial data queries |
+
+## Outbound User-Agent (required)
+
+Every HTTP call to a You.com API made by integration code — whether authored by a bot or an engineer — MUST send an identifiable `User-Agent` so You.com can attribute traffic to the integration. On the free `https://api.you.com/v1/agents/search` tier there is no API key, so the User-Agent is the primary attribution signal.
+
+**Format:** `youdotcom-integration/<owner>-<repo>` where `<owner>-<repo>` is the lowercased target repo slug.
+
+| Target repo | User-Agent |
+|---|---|
+| `BerriAI/litellm` | `youdotcom-integration/berriai-litellm` |
+| `open-webui/open-webui` | `youdotcom-integration/open-webui-open-webui` |
+
+Rules:
+
+- If the host project's HTTP client already sends its own meaningful `User-Agent`, **append** our product token (User-Agents are space-separated product tokens) instead of replacing it: `litellm/1.74.0 youdotcom-integration/berriai-litellm`. If only the HTTP library's default would be sent (`python-requests/…`, `axios/…`), set ours outright.
+- Apply it **only** to requests to You.com hosts (`api.you.com`, legacy `api.ydc-index.io`) — never to the project's other traffic.
+- Optionally append the comment `(+https://github.com/youdotcom-oss/integration-tracking)` if the upstream project has no objection.
+- Record the exact User-Agent string in the tracking issue's Notes section.
+- You.com's own SDKs identify themselves with their package name and version instead (e.g. `youdotcom-python-sdk/0.3.1`).
 
 ## Issue Lifecycle Commands
 

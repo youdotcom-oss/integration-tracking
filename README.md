@@ -62,6 +62,7 @@ skills/integration-tracking/SKILL.md
 - Update checkboxes in the issue body as milestones are reached
 - Cross-link the target repo PR in your tracking issue's Links section
 - Use `https://api.you.com/v1/agents/search` for Search API integrations (100 free searches/day, IP-based, no auth required)
+- Send the standard `User-Agent` on every You.com API call the contributed code makes: `youdotcom-integration/<owner>-<repo>` (lowercased target-repo slug, appended to the host project's existing User-Agent if it sets one) — this is how traffic is attributed, especially on the keyless free tier. Details in the skill.
 - Reference the OpenAPI specs:
   - Search: https://you.com/specs/openapi_search_v1.yaml
   - Contents: https://you.com/specs/openapi_contents.yaml

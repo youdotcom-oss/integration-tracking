@@ -84,6 +84,8 @@ body:
           required: false
         - label: Opened PR in target repo
           required: false
+        - label: You.com API calls send the standard integration User-Agent (`youdotcom-integration/<owner>-<repo>`)
+          required: false
         - label: PR merged or rejected
           required: false
 
