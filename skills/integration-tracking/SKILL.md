@@ -50,6 +50,34 @@ Rules:
 - Record the exact User-Agent string in the tracking issue's Notes section.
 - You.com's own SDKs identify themselves with their package name and version instead (e.g. `youdotcom-python-sdk/0.3.1`).
 
+The User-Agent attributes **API traffic**. Human-clickable links are attributed separately — see [Outbound UTM Attribution](#outbound-utm-attribution-required-for-youcom-links).
+
+## Outbound UTM Attribution (required for you.com links)
+
+Every human-clickable link to a you.com property (`you.com`, `you.com/platform`, `you.com/docs/...`) that integration work places in an external surface — READMEs, docs pages, marketplace listings, sample configs, upgrade-hint error messages — MUST carry UTM parameters following the you.com marketing taxonomy (2026 UTM Builder and Taxonomy):
+
+| Parameter | Value | Notes |
+|---|---|---|
+| `utm_source` | `<owner>-<repo>` | Lowercased target repo slug where the link lives — the same slug as the User-Agent convention (e.g. `mastra-ai-mastra`) |
+| `utm_medium` | `oss_integration` | Fixed channel value for integration work |
+| `utm_campaign` | `YYYY-MM-<initiative>` | Ship month + initiative. Default initiative is `oss-integrations` (e.g. `2026-07-oss-integrations`); use a more specific one only when the work belongs to a named campaign |
+| `utm_content` | placement (optional) | Where the link appears: `readme`, `docs`, `marketplace`, `error-message`, `sample` |
+| `utm_term` | — | Not used for integrations |
+
+Example:
+
+```
+https://you.com/platform?utm_source=mastra-ai-mastra&utm_medium=oss_integration&utm_campaign=2026-07-oss-integrations&utm_content=readme
+```
+
+Rules:
+
+- Apply **only** to links a human clicks. Never add UTM parameters to machine-fetched URLs — API endpoints, MCP server URLs, OpenAPI spec URLs, env-var values. Those are attributed by the User-Agent convention instead.
+- Append with `&` when the URL already has a query string; keep values lowercase (hyphens inside campaign initiatives, underscores in `utm_medium`).
+- Use the ship month of the integration for `YYYY-MM`, and keep one consistent `utm_campaign` across all links in a single integration.
+- Record the exact `utm_campaign` (and any non-default values) in the tracking issue's Notes section, like the User-Agent string.
+- If the upstream project strips or rejects tracking parameters (some docs linters do), ship bare links rather than fight upstream style, and note that in the tracking issue.
+
 ## Issue Lifecycle Commands
 
 When updating a tracking issue, use the checklist and labels in this order:

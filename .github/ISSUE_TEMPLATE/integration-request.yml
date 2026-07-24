@@ -86,6 +86,8 @@ body:
           required: false
         - label: You.com API calls send the standard integration User-Agent (`youdotcom-integration/<owner>-<repo>`)
           required: false
+        - label: You.com links in contributed docs carry the standard UTM parameters (`utm_source=<owner>-<repo>&utm_medium=oss_integration&utm_campaign=YYYY-MM-<initiative>`)
+          required: false
         - label: PR merged or rejected
           required: false
 
