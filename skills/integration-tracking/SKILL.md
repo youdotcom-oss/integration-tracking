@@ -26,7 +26,7 @@ All You.com API integrations authenticate via the `YDC_API_KEY` environment vari
 
 | API | Label | OpenAPI Spec | Notes |
 |---|---|---|---|
-| Search | `api:search` | https://you.com/specs/openapi_search_v1.yaml | Use `https://api.you.com/v1/agents/search` for 100 free searches/day (IP-based, no livecrawl) |
+| Search | `api:search` | https://you.com/specs/openapi_search_v1.yaml | Use `https://api.you.com/v1/agents/search` for 100 free searches/day (no livecrawl) |
 | Contents | `api:contents` | https://you.com/specs/openapi_contents.yaml | Extract content from URLs |
 | Research | `api:research` | https://you.com/specs/openapi_research.yaml | Synthesized answers with citations |
 | Finance Research | `api:finance-research` | https://you.com/specs/openapi_finance_research_v1.yaml | Financial data queries |
